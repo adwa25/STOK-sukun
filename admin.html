@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Panel | ADWA Store</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; background: #f5f5f5; color: #333; }
+    header { background: #222; color: white; padding: 20px; text-align: center; }
+    main { padding: 20px; max-width: 500px; margin: auto; }
+    form { background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+    form input, form select { width: 100%; padding: 8px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px; }
+    form button { padding: 10px 15px; background: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer; }
+    a { color: #007bff; text-decoration: none; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>ADWA Store - Tambah Akun</h1>
+  </header>
+
+  <main>
+    <form id="form-akun">
+      <label>Jenis Game:</label>
+      <select id="game">
+        <option value="ml">Mobile Legends</option>
+        <option value="ff">Free Fire</option>
+      </select>
+
+      <label>Nama Akun:</label>
+      <input type="text" id="nama" required />
+
+      <label>Deskripsi:</label>
+      <input type="text" id="deskripsi" required />
+
+      <label>Harga:</label>
+      <input type="text" id="harga" required />
+
+      <label>Link Gambar (URL):</label>
+      <input type="text" id="gambar" placeholder="https://..." required />
+
+      <button type="submit">Tambah Akun</button>
+    </form>
+    <p style="margin-top: 20px;">Kembali ke <a href="index.html">halaman utama</a></p>
+  </main>
+
+  <script>
+    const akunML = JSON.parse(localStorage.getItem("akunML") || "[]");
+    const akunFF = JSON.parse(localStorage.getItem("akunFF") || "[]");
+
+    document.getElementById("form-akun").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const game = document.getElementById("game").value;
+      const nama = document.getElementById("nama").value;
+      const desc = document.getElementById("deskripsi").value;
+      const harga = document.getElementById("harga").value;
+      const gambar = document.getElementById("gambar").value;
+      const link = `https://wa.me/6288267074566?text=Saya%20minat%20akun%20${encodeURIComponent(nama)}`;
+
+      const akunBaru = { nama, desc, harga, gambar, link };
+
+      if (game === "ml") {
+        akunML.push(akunBaru);
+        localStorage.setItem("akunML", JSON.stringify(akunML));
+      } else {
+        akunFF.push(akunBaru);
+        localStorage.setItem("akunFF", JSON.stringify(akunFF));
+      }
+
+      alert("Akun berhasil ditambahkan!");
+      this.reset();
+    });
+  </script>
+</body>
+</html>

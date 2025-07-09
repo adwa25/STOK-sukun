@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ADWA Store - Stok Akun ML & FF</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; background: #f5f5f5; color: #333; }
+    header { background: #222; color: white; padding: 20px; text-align: center; }
+    nav a { color: white; margin: 0 15px; text-decoration: none; }
+    main { padding: 20px; }
+    .product-list { display: flex; flex-wrap: wrap; gap: 20px; }
+    .product { background: white; border: 1px solid #ddd; border-radius: 10px; padding: 10px; width: 250px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+    .product img { width: 100%; border-radius: 10px; }
+    .price { font-weight: bold; color: #e91e63; }
+    .buy-btn { display: inline-block; margin-top: 10px; padding: 8px 12px; background: #28a745; color: white; text-decoration: none; border-radius: 5px; }
+    footer { background: #222; color: white; text-align: center; padding: 15px; margin-top: 40px; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>ADWA Store - Stok Akun ML & FF</h1>
+    <nav>
+      <a href="#ml">Mobile Legends</a>
+      <a href="#ff">Free Fire</a>
+      <a href="admin.html">Admin</a>
+    </nav>
+  </header>
+
+  <main>
+    <section id="ml">
+      <h2>Stok Akun Mobile Legends</h2>
+      <div class="product-list" id="ml-list"></div>
+    </section>
+
+    <section id="ff">
+      <h2>Stok Akun Free Fire</h2>
+      <div class="product-list" id="ff-list"></div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 ADWA Store. All rights reserved.</p>
+  </footer>
+
+  <script>
+    const akunML = JSON.parse(localStorage.getItem("akunML") || "[]");
+    const akunFF = JSON.parse(localStorage.getItem("akunFF") || "[]");
+
+    function tampilkanProduk(data, targetId) {
+      const container = document.getElementById(targetId);
+      container.innerHTML = "";
+      data.forEach(item => {
+        container.innerHTML += `
+          <div class="product">
+            <img src="${item.gambar}" alt="${item.nama}">
+            <h3>${item.nama}</h3>
+            <p>${item.desc}</p>
+            <p class="price">${item.harga}</p>
+            <a href="${item.link}" class="buy-btn">Beli Sekarang</a>
+          </div>
+        `;
+      });
+    }
+
+    tampilkanProduk(akunML, "ml-list");
+    tampilkanProduk(akunFF, "ff-list");
+  </script>
+</body>
+</html>
